@@ -37,7 +37,7 @@ function concatenateStrings(value1, value2) {
  */
 function getStringLength(value) {
 
-    return value.length;
+  return value.length;
 }
 
 /**
@@ -118,7 +118,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  */
 function repeatString(value, count) {
 
-return value.repeat(count);
+  return value.repeat(count);
 }
 
 /**
@@ -183,7 +183,7 @@ function convertToUpperCase(str) {
  */
 function extractEmails(str) {
   
-  return str.split(";");
+  return str.split(';');
 }
 
 /**
@@ -211,9 +211,9 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
 
-  let header = `┌${"─".repeat(width-2)}┐\n`;
-  let side = `│${" ".repeat(width-2)}│\n`;
-  let footer = `└${"─".repeat(width-2)}┘\n`;
+  const header = `┌${'─'.repeat(width-2)}┐\n`;
+  const side = `│${' '.repeat(width-2)}│\n`;
+  const footer = `└${'─'.repeat(width-2)}┘\n`;
 
   return header+side.repeat(height-2)+footer; //Sergey Z : What about width & height less than 2 ? 
 
@@ -237,7 +237,11 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  throw new Error('Not implemented');
+
+  return str.replace(/[A-Za-z]/g, function (toRot) {
+    return String.fromCharCode( toRot.charCodeAt(0) 
+    + ( toRot.toUpperCase() <= 'M' ? 13 : -13 ) );
+  } );
 }
 
 /**
@@ -254,7 +258,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  throw new Error('Not implemented');
+  return value instanceof String || typeof(value)==='string'; 
 }
 
 
@@ -283,7 +287,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  throw new Error('Not implemented');
+  
+  return '♣♦♥♠'.indexOf(value.slice(-1))*13+
+  'A234567891JQK'.indexOf(value.slice(0, 1));
 }
 
 module.exports = {
