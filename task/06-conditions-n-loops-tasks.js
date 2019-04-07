@@ -171,7 +171,11 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  throw new Error('Not implemented');
+  for(let i=0;i<str.length;i++){
+    if(str.indexOf(str[i])===i&&str.lastIndexOf(str[i])===i)
+    {return str[i];}
+  }
+  return null;
 }
 
 
@@ -198,7 +202,9 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-  throw new Error('Not implemented');
+  return `${isStartIncluded ? '[' : '('}` +
+  `${Math.min(a, b)}, ${Math.max(a, b)}` +
+  `${isEndIncluded ? ']' : ')'}`; 
 }
 
 
@@ -215,7 +221,8 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-  throw new Error('Not implemented');
+  return (str === '')  ? '' : reverseString(str.substr(1)) +str.charAt(0) ;
+
 }
 
 
@@ -232,8 +239,9 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  throw new Error('Not implemented');
+  return parseInt(num.toString().split('').reverse().join(''), 10);
 }
+
 
 
 /**
@@ -276,7 +284,8 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-  throw new Error('Not implemented');
+  const digits = num.toString().split('').reduce((acc, cur) => +acc + (+cur));
+  return digits < 9 ? digits : getDigitalRoot(digits); 
 }
 
 
@@ -338,7 +347,31 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-  throw new Error('Not implemented');
+  const mcToSec = 1000;
+  const timeSecond = (endDate.getTime() - startDate.getTime())/mcToSec;
+  const minute = 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+  const month = day *30;
+  const year = day *365;
+  const correctTime = 0.001;
+  let result = '';
+  if (timeSecond <=45) result = 'a few seconds ago';
+  else if (timeSecond <=90) result = 'a minute ago';
+  else if (timeSecond<=minute*45)
+  {result = `${Math.round((timeSecond - correctTime) / minute)} minutes ago`;}
+  else if (timeSecond <= minute * 90) result = 'an hour ago';
+  else if (timeSecond<=hour*22)
+  {result = `${Math.round((timeSecond - correctTime) / hour)} hours ago`;}
+  else if (timeSecond<=hour*36) result = 'a day ago';
+  else if (timeSecond<=day*25)
+  {result = `${Math.round((timeSecond - correctTime) / day)} days ago`;}
+  else if (timeSecond<=day*45) result = 'a month ago';
+  else if (timeSecond<=day*345)
+  {result = `${Math.round((timeSecond - correctTime) / month)} months ago`;}
+  else if (timeSecond<=day*545) result = 'a year ago';
+  else result = `${Math.round((timeSecond - correctTime) / year)} years ago`;
+  return result;
 }
 
 
